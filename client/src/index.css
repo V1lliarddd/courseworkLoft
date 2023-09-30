@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.about-us-h2-after::after{
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 1px;
+    background-color: rgb(36, 84, 98);
+    bottom: -15px;
+    right: 40%;
+}
+.sidebar-panel-open{
+    animation-name: open-side-bar;
+    animation-duration: .5s;
+}
+.sidebar-panel-close{
+    animation-name: close-side-bar;
+    animation-duration: .5s;
+}
+@keyframes open-side-bar {
+    from{
+        left: -20%;
+    }
+    to{
+        left: 0;
+    }
+}
+@keyframes close-side-bar {
+    from{
+        left: 0;
+    }
+    to{
+        left: -20%;
+    }
+}
