@@ -17,6 +17,11 @@ function SignUp() {
   } = useForm({
     mode: "onBlur",
   });
+  const deleteUsers = async () => {
+    await fetch("http://localhost:3002/deleteAllUsers", {
+      method: "DELETE",
+    });
+  };
   const onSubmit = async (registryData) => {
     const isExist = await fetch(
       `http://localhost:3002/checkUser/${registryData.email}`,
@@ -61,8 +66,8 @@ function SignUp() {
             placeholder="Ваше имя"
             className=" p-1 outline-none font-semibold border-b-2 w-3/4"
           />
-          {errors?.Name && (
-            <p className=" text-red-600">{errors?.Name?.message || "Ошибка"}</p>
+          {errors?.name && (
+            <p className=" text-red-600">{errors?.name?.message || "Ошибка"}</p>
           )}
           <input
             {...register("email", {
@@ -77,9 +82,9 @@ function SignUp() {
             placeholder="Ваш e-mail"
             className=" p-1 outline-none font-semibold border-b-2 w-3/4"
           />
-          {errors?.Email && (
+          {errors?.email && (
             <p className=" text-red-600">
-              {errors?.Email?.message || "Ошибка"}
+              {errors?.email?.message || "Ошибка"}
             </p>
           )}
           <div className=" flex items-center justify-center border-b-2 w-3/4">
@@ -116,9 +121,9 @@ function SignUp() {
               />
             )}
           </div>
-          {errors?.Password && (
+          {errors?.password && (
             <p className=" text-red-600">
-              {errors?.Password?.message || "Ошибка"}
+              {errors?.password?.message || "Ошибка"}
             </p>
           )}
           <input
@@ -134,9 +139,9 @@ function SignUp() {
             placeholder="Номер телефона"
             className=" p-1 outline-none font-semibold border-b-2 w-3/4"
           />
-          {errors?.Phone && (
+          {errors?.phone && (
             <p className=" text-red-600 text-center">
-              {errors?.Phone?.message || "Ошибка"}
+              {errors?.phone?.message || "Ошибка"}
             </p>
           )}
           <input
@@ -149,6 +154,7 @@ function SignUp() {
             Уже есть аккаунт?
           </Link>
         </form>
+        <button onClick={() => {deleteUsers()}}>delete Users</button>
       </div>
     </div>
   );

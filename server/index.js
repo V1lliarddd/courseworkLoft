@@ -7,6 +7,7 @@ import { getAllCategories } from "./routes/getAllCategories.js";
 import { getSingleCategory } from "./routes/getSingleCategory.js";
 import { checkIfUserExists } from "./routes/checkIfUserExists.js";
 import { addUser } from "./routes/addUser.js";
+import { deleteAllUsers } from "./routes/deleteUsers.js";
 const app = express();
 const port = 3002;
 app.use(cors());
@@ -20,7 +21,5 @@ app.use("/checkUser/:email", checkIfUserExists);
 // ADD USER FUNCTION
 app.use("/addUser", addUser);
 // DELETE ALL USERS
-app.delete("/deleteAllUsers", async (req, res) => {
-  await prisma.user.deleteMany({});
-});
+app.use("/deleteAllUsers", deleteAllUsers);
 app.listen(port, () => {});
