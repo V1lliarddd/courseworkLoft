@@ -1,7 +1,7 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 export const getAllCategories = router.get("/", async (req, res) => {
   const allCategories = await prisma.categories.findMany();
   return res.json(allCategories);

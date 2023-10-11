@@ -17,13 +17,8 @@ function SignUp() {
   } = useForm({
     mode: "onBlur",
   });
-  const deleteUsers = async () => {
-    await fetch("http://localhost:3002/deleteAllUsers", {
-      method: "DELETE",
-    });
-  };
   const onSubmit = async (registryData) => {
-    const isExist = await fetch(
+    const isUserExist = await fetch(
       `http://localhost:3002/checkUser/${registryData.email}`,
       {
         method: "GET",
@@ -35,18 +30,16 @@ function SignUp() {
     )
       .then((a) => a.json())
       .finally((json) => json);
-    console.log(isExist);
-    if (isExist) {
+    if (isUserExist.hasOwnProperty("isFound")) {
+      addNewUser(registryData);
+      reset();
+    } else {
       setIsExist(true);
-      return "exist";
     }
-    addNewUser(registryData);
-    reset();
   };
   return (
-    <div className=" flex items-center justify-center mt-[150px]">
+    <div className=" flex items-center justify-center mt-[150px] w-full h-full">
       <div className=" p-3 flex flex-col items-center justify-center w-full h-full">
-        {isExist && <p>Exist</p>}
         <form
           onSubmit={handleSubmit(onSubmit)}
           className=" flex flex-col items-center justify-center gap-4 w-1/4 shadow-2xl p-6 rounded-md"
@@ -144,6 +137,7 @@ function SignUp() {
               {errors?.phone?.message || "Ошибка"}
             </p>
           )}
+          {isExist && <p className=" text-red-600 text-center">Email занят</p>}
           <input
             type="submit"
             value="Зарегестрироваться"
@@ -154,7 +148,6 @@ function SignUp() {
             Уже есть аккаунт?
           </Link>
         </form>
-        <button onClick={() => {deleteUsers()}}>delete Users</button>
       </div>
     </div>
   );

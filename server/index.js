@@ -1,13 +1,11 @@
-//Prisma, prisma-client, nodemon,express, cors установлены
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import bcrypt from "bcrypt";
 import { getAllCategories } from "./routes/getAllCategories.js";
 import { getSingleCategory } from "./routes/getSingleCategory.js";
-import { checkIfUserExists } from "./routes/checkIfUserExists.js";
 import { addUser } from "./routes/addUser.js";
 import { deleteAllUsers } from "./routes/deleteUsers.js";
+import { checkIfUserExists } from "./routes/checkIfUserExists.js";
 const app = express();
 const port = 3002;
 app.use(cors());
